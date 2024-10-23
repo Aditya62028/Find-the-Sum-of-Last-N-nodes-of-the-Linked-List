@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.*;
+class Node {
+    int data;
+    Node next;
+    Node(int a) {
+        data = a;
+        next = null;
+    }
+}
+class Solution {
+    public int sumOfLastN_Nodes(Node head, int n) {
+        int cnt = 0;
+        int ans = 0;
+        Node curr = head;
+        while (curr != null) {
+            cnt++;
+            curr = curr.next;
+        }
+        for (int i = 1; i <= cnt; i++) {
+            if (cnt - i < n) {
+                ans += head.data;
+            }
+            head = head.next;
+        }
+        return ans;
+    }
+}
+public class LinkedList {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());
+        while (t-- > 0) {
+            String[] input = br.readLine().split(" ");
+            int n = Integer.parseInt(br.readLine());
+            Node head = new Node(Integer.parseInt(input[0]));
+            Node tail = head;
+            for (int i = 1; i < input.length; ++i) {
+                tail.next = new Node(Integer.parseInt(input[i]));
+                tail = tail.next;
+            }
+            Solution ob = new Solution();
+            System.out.println(ob.sumOfLastN_Nodes(head, n));
+        }
+    }
+}
